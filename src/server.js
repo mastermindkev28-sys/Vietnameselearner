@@ -56,12 +56,12 @@ function addLog(type, message, success, error = null) {
 
 // ── Send text ──
 async function sendNotification(message, type, title = null) {
-  const titles = { lunch: 'An trua nha em!', dinner: 'An toi nha em!', custom: 'Tu anh!', scheduled: 'Tu anh!' };
+  const titles = { lunch: 'From your favorite person', dinner: 'From your favorite person', custom: 'From your favorite person', scheduled: 'From your favorite person' };
   if (!hasCredentials) { addLog(type, message, false, 'No topic set'); return { ok: false, error: 'NTFY_TOPIC not configured' }; }
   try {
     const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
-      headers: { 'Title': title || titles[type] || 'Tu anh!' },
+      headers: { 'Title': title || titles[type] || 'From your favorite person' },
       body: message,
     });
     const success = res.ok;
@@ -81,7 +81,7 @@ async function sendImage(buffer, mimetype, filename, caption) {
     const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
       headers: {
-        'Title': caption || 'Tu anh!',
+        'Title': caption || 'From your favorite person',
         'Filename': filename || 'image.jpg',
         'Content-Type': mimetype || 'image/jpeg',
       },
@@ -190,7 +190,7 @@ app.delete('/api/scheduled/:id', (req, res) => {
 // ── Photo upload ──
 app.post('/api/photo', upload.single('photo'), async (req, res) => {
   if (!req.file) return res.status(400).json({ ok: false, error: 'No file' });
-  const caption = req.body.caption || 'Tu anh!';
+  const caption = req.body.caption || 'From your favorite person';
   res.json(await sendImage(req.file.buffer, req.file.mimetype, req.file.originalname, caption));
 });
 
