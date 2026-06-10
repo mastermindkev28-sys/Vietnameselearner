@@ -108,6 +108,31 @@ app.post('/api/toggle', (req, res) => {
   res.json({ enabled: remindersEnabled });
 });
 
+app.post('/api/message', async (req, res) => {
+  const { message } = req.body;
+  if (!message || !message.trim()) {
+    return res.status(400).json({ ok: false, error: 'Message is empty' });
+  }
+  if (!hasCredentials) {
+    return res.status(503).json({ ok: false, error: 'NTFY_TOPIC not configured' });
+  }
+  try {
+    const r = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+      method: 'POST',
+      headers: { 'Title': 'Tu anh!' },
+      body: message.trim(),
+    });
+    const success = r.ok;
+    logs.unshift({ time: now(), type: 'custom', message: message.trim(), success, error: success ? null : `HTTP ${r.status}` });
+    if (logs.length > 50) logs.splice(50);
+    res.json({ ok: success });
+  } catch (err) {
+    logs.unshift({ time: now(), type: 'custom', message: message.trim(), success: false, error: err.message });
+    if (logs.length > 50) logs.splice(50);
+    res.json({ ok: false, error: err.message });
+  }
+});
+
 app.post('/api/send', async (req, res) => {
   const { type } = req.body;
   if (!['lunch', 'dinner'].includes(type)) {

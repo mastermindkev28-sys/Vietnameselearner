@@ -254,6 +254,45 @@
     .log-type { flex: 1; }
     .log-status { font-size: 0.85rem; }
     .log-empty { font-size: 0.8rem; color: #c882a8; text-align: center; padding: 14px 0; font-style: italic; }
+
+    /* ── Custom message ── */
+    textarea {
+      width: 100%;
+      border: 1.5px solid rgba(255, 182, 215, 0.5);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      color: #5c3d6e;
+      background: rgba(255, 240, 250, 0.6);
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 10px;
+    }
+    textarea:focus {
+      border-color: #e891c0;
+      box-shadow: 0 0 0 3px rgba(232, 145, 192, 0.15);
+    }
+    textarea::placeholder { color: #d4a0c0; }
+    .btn-send-msg {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(135deg, #f48fb1, #ce93d8);
+      color: white;
+      box-shadow: 0 3px 12px rgba(220, 130, 190, 0.4);
+      transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .btn-send-msg:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 5px 18px rgba(220, 130, 190, 0.55); }
+    .btn-send-msg:active { transform: scale(0.97); }
+    .btn-send-msg:disabled { opacity: 0.55; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -319,6 +358,16 @@
     </div>
 
     <div class="status-msg" id="status-msg"></div>
+  </div>
+
+  <!-- Custom message card -->
+  <div class="card">
+    <div class="section-title">💌 Nhắn gì cho em</div>
+    <textarea id="custom-msg" placeholder="Viết gì đó cho em... 💕" rows="3"></textarea>
+    <button class="btn btn-send-msg" id="btn-msg" onclick="sendMessage()">
+      Gửi ngay 💌
+    </button>
+    <div class="status-msg" id="msg-status"></div>
   </div>
 
   <!-- Log card -->
@@ -394,11 +443,13 @@
       if (d.logs[0]?.time === lastLogTime) return;
       lastLogTime = d.logs[0]?.time;
 
+      const icon = { lunch: '🍱', dinner: '🍜', custom: '💌' };
+      const label = { lunch: 'Ăn trưa', dinner: 'Ăn tối', custom: 'Tin nhắn' };
       list.innerHTML = d.logs.map(l => `
         <li>
-          <span class="log-icon">${l.type === 'lunch' ? '🍱' : '🍜'}</span>
+          <span class="log-icon">${icon[l.type] || '💬'}</span>
           <span class="log-time">${l.time.split(', ')[1] || l.time}</span>
-          <span class="log-type">${l.type === 'lunch' ? 'Ăn trưa' : 'Ăn tối'}</span>
+          <span class="log-type">${l.type === 'custom' ? (l.message.length > 22 ? l.message.slice(0, 22) + '…' : l.message) : label[l.type]}</span>
           <span class="log-status">${l.success ? '✅' : '❌'}</span>
         </li>
       `).join('');
@@ -442,6 +493,49 @@
 
     setTimeout(() => { btn.disabled = false; }, 30000);
     pollLogs();
+  }
+
+  // ── Send custom message ──
+  async function sendMessage() {
+    const textarea = document.getElementById('custom-msg');
+    const btn = document.getElementById('btn-msg');
+    const text = textarea.value.trim();
+    if (!text) { showMsgStatus('Viết gì đó trước đã nha! 🌸', 'error'); return; }
+
+    btn.disabled = true;
+    showMsgStatus('Đang gửi... 💌', '');
+
+    try {
+      const res = await fetch('/api/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+      });
+      const d = await res.json();
+      if (d.ok) {
+        showMsgStatus('Đã gửi! 💕', 'success');
+        textarea.value = '';
+      } else {
+        showMsgStatus(`❌ ${d.error}`, 'error');
+      }
+    } catch (_) {
+      showMsgStatus('❌ Lỗi kết nối', 'error');
+    }
+
+    btn.disabled = false;
+    pollLogs();
+  }
+
+  // Send on Ctrl+Enter / Cmd+Enter
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') sendMessage();
+  });
+
+  function showMsgStatus(msg, cls) {
+    const el = document.getElementById('msg-status');
+    el.textContent = msg;
+    el.className = 'status-msg ' + cls;
+    if (msg) setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
   }
 
   function showStatus(msg, cls) {
