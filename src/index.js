@@ -4,8 +4,8 @@ const cron = require('node-cron');
 const fetch = require('node-fetch');
 
 const NTFY_TOPIC = process.env.NTFY_TOPIC;
-const LUNCH_MESSAGE = process.env.LUNCH_MESSAGE || 'Em ơi, nhớ ăn cơm trưa và uống nước nha! 🍱💧';
-const DINNER_MESSAGE = process.env.DINNER_MESSAGE || 'Em ơi, nhớ ăn tối và uống nước nha! 🍜💧';
+const LUNCH_MESSAGE = process.env.LUNCH_MESSAGE || 'Cục cưng ơiiii, nhớ ăn trưa và uống nước đầy đủ đấy nhé <3';
+const DINNER_MESSAGE = process.env.DINNER_MESSAGE || 'Cục cưng ơiiii, nhớ ăn tối và uống nước đầy đủ đấy nhé <3';
 
 if (!NTFY_TOPIC || NTFY_TOPIC === 'your-secret-topic-here') {
   console.error('ERROR: Set NTFY_TOPIC in your .env file.');

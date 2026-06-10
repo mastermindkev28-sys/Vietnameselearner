@@ -13,8 +13,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 15 * 1024 * 1024 } });
 
 const NTFY_TOPIC = process.env.NTFY_TOPIC;
-const LUNCH_MESSAGE = process.env.LUNCH_MESSAGE || 'Em oi, nho an com trua va uong nuoc nha!';
-const DINNER_MESSAGE = process.env.DINNER_MESSAGE || 'Em oi, nho an toi va uong nuoc nha!';
+const LUNCH_MESSAGE = process.env.LUNCH_MESSAGE || 'Cục cưng ơiiii, nhớ ăn trưa và uống nước đầy đủ đấy nhé <3';
+const DINNER_MESSAGE = process.env.DINNER_MESSAGE || 'Cục cưng ơiiii, nhớ ăn tối và uống nước đầy đủ đấy nhé <3';
 
 const hasCredentials = NTFY_TOPIC && NTFY_TOPIC !== 'your-secret-topic-here';
 if (!hasCredentials) console.warn('WARNING: NTFY_TOPIC not set. Copy .env.example to .env and set it.');
