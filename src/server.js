@@ -204,4 +204,18 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`\n🌸 Reminder Widget → http://localhost:${PORT}`);
   console.log(`   12:30 PM & 6:30 PM Hanoi time | Current: ${now()}\n`);
+
+  // Self-ping every 14 minutes to prevent Railway free tier from sleeping
+  const APP_URL = process.env.RAILWAY_PUBLIC_DOMAIN
+    ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+    : null;
+
+  if (APP_URL) {
+    setInterval(() => {
+      fetch(`${APP_URL}/api/status`)
+        .then(() => console.log(`[${now()}] Keepalive ping OK`))
+        .catch(err => console.warn(`[${now()}] Keepalive failed: ${err.message}`));
+    }, 14 * 60 * 1000);
+    console.log(`   Keepalive enabled → ${APP_URL}`);
+  }
 });
