@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>💕 Nhắc nhở của em</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -13,292 +13,158 @@
       background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #e8eaf6 100%);
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       padding: 20px;
     }
 
     .widget {
       width: 100%;
-      max-width: 380px;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
       gap: 14px;
+      padding-bottom: 40px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255,255,255,0.82);
       backdrop-filter: blur(12px);
       border-radius: 22px;
       padding: 20px 22px;
-      box-shadow: 0 4px 24px rgba(200, 100, 160, 0.13), 0 1.5px 6px rgba(160, 100, 200, 0.08);
-      border: 1.5px solid rgba(255, 182, 215, 0.35);
+      box-shadow: 0 4px 24px rgba(200,100,160,0.13), 0 1.5px 6px rgba(160,100,200,0.08);
+      border: 1.5px solid rgba(255,182,215,0.35);
     }
 
-    /* ── Title card ── */
-    .title-card {
-      text-align: center;
-      padding: 22px 22px 18px;
-    }
-    .title-card .flowers {
-      font-size: 1.5rem;
-      letter-spacing: 6px;
-      display: block;
-      margin-bottom: 6px;
-      animation: sway 3s ease-in-out infinite;
-    }
-    @keyframes sway {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
-    }
-    .title-card h1 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #b5477a;
-      margin-bottom: 12px;
-    }
-    .clock {
-      font-size: 2.3rem;
-      font-weight: 800;
-      color: #7b3fa0;
-      letter-spacing: 2px;
-      font-variant-numeric: tabular-nums;
-      transition: opacity 0.1s ease;
-    }
-    .clock-label {
-      font-size: 0.75rem;
-      color: #c882a8;
-      font-weight: 600;
-      margin-top: 3px;
-      letter-spacing: 1px;
-    }
+    /* ── Title ── */
+    .title-card { text-align: center; padding: 22px 22px 18px; }
+    .flowers { font-size: 1.5rem; letter-spacing: 6px; display: block; margin-bottom: 6px; animation: sway 3s ease-in-out infinite; }
+    @keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    .title-card h1 { font-size: 1.25rem; font-weight: 800; color: #b5477a; margin-bottom: 12px; }
+    .clock { font-size: 2.3rem; font-weight: 800; color: #7b3fa0; letter-spacing: 2px; font-variant-numeric: tabular-nums; transition: opacity 0.1s ease; }
+    .clock-label { font-size: 0.75rem; color: #c882a8; font-weight: 600; margin-top: 3px; letter-spacing: 1px; }
 
-    /* ── Reminders card ── */
-    .section-title {
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: #b5477a;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .reminder-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 14px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(255, 200, 230, 0.25), rgba(216, 180, 255, 0.2));
-      margin-bottom: 9px;
-      border: 1px solid rgba(255, 182, 215, 0.3);
-      transition: background 0.3s;
-    }
-    .reminder-row.soon {
-      background: linear-gradient(135deg, rgba(255, 160, 200, 0.4), rgba(200, 150, 255, 0.3));
-      animation: pulse-glow 1.4s ease-in-out infinite;
-    }
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(220, 100, 160, 0.2); }
-      50% { box-shadow: 0 0 0 8px rgba(220, 100, 160, 0); }
-    }
+    /* ── Section title ── */
+    .section-title { font-size: 0.8rem; font-weight: 800; color: #b5477a; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 12px; }
+
+    /* ── Reminder rows ── */
+    .reminder-row { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 14px; background: linear-gradient(135deg, rgba(255,200,230,0.25), rgba(216,180,255,0.2)); margin-bottom: 9px; border: 1px solid rgba(255,182,215,0.3); transition: background 0.3s; }
+    .reminder-row.soon { background: linear-gradient(135deg, rgba(255,160,200,0.4), rgba(200,150,255,0.3)); animation: pulse-glow 1.4s ease-in-out infinite; }
+    @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(220,100,160,0.2); } 50% { box-shadow: 0 0 0 8px rgba(220,100,160,0); } }
     .reminder-icon { font-size: 1.4rem; }
     .reminder-info { flex: 1; }
     .reminder-name { font-size: 0.85rem; font-weight: 700; color: #7b3fa0; }
     .reminder-time { font-size: 0.75rem; color: #c882a8; font-weight: 600; }
-    .countdown {
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #b5477a;
-      text-align: right;
-      min-width: 70px;
-    }
+    .countdown { font-size: 0.82rem; font-weight: 800; color: #b5477a; text-align: right; min-width: 70px; }
 
     /* ── Toggle ── */
-    .controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 14px 0 12px;
-    }
-    .toggle-label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #7b3fa0;
-    }
-    .toggle {
-      position: relative;
-      width: 52px;
-      height: 28px;
-      cursor: pointer;
-    }
+    .controls { display: flex; align-items: center; justify-content: space-between; margin: 14px 0 12px; }
+    .toggle-label { font-size: 0.85rem; font-weight: 700; color: #7b3fa0; }
+    .toggle { position: relative; width: 52px; height: 28px; cursor: pointer; }
     .toggle input { display: none; }
-    .toggle-track {
-      position: absolute;
-      inset: 0;
-      border-radius: 999px;
-      background: #e0c8ee;
-      transition: background 0.3s;
-    }
+    .toggle-track { position: absolute; inset: 0; border-radius: 999px; background: #e0c8ee; transition: background 0.3s; }
     .toggle input:checked ~ .toggle-track { background: linear-gradient(90deg, #e891c0, #b39ddb); }
-    .toggle-thumb {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: white;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    }
+    .toggle-thumb { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.2); transition: transform 0.3s cubic-bezier(.34,1.56,.64,1); }
     .toggle input:checked ~ .toggle-thumb { transform: translateX(24px); }
 
-    /* ── Send buttons ── */
-    .btn-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .btn {
-      border: none;
-      border-radius: 14px;
-      padding: 11px 10px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      line-height: 1.2;
-    }
+    /* ── Buttons ── */
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btn { border: none; border-radius: 14px; padding: 11px 10px; font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s; display: flex; flex-direction: column; align-items: center; gap: 3px; line-height: 1.2; }
     .btn:active { transform: scale(0.95); }
     .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-    .btn-lunch {
-      background: linear-gradient(135deg, #f8bbd0, #f48fb1);
-      color: #880e4f;
-      box-shadow: 0 3px 10px rgba(244, 143, 177, 0.4);
-    }
-    .btn-lunch:hover:not(:disabled) { box-shadow: 0 5px 16px rgba(244, 143, 177, 0.55); transform: translateY(-1px); }
-    .btn-dinner {
-      background: linear-gradient(135deg, #e1bee7, #ce93d8);
-      color: #4a148c;
-      box-shadow: 0 3px 10px rgba(206, 147, 216, 0.4);
-    }
-    .btn-dinner:hover:not(:disabled) { box-shadow: 0 5px 16px rgba(206, 147, 216, 0.55); transform: translateY(-1px); }
+    .btn-lunch { background: linear-gradient(135deg, #f8bbd0, #f48fb1); color: #880e4f; box-shadow: 0 3px 10px rgba(244,143,177,0.4); }
+    .btn-lunch:hover:not(:disabled) { box-shadow: 0 5px 16px rgba(244,143,177,0.55); transform: translateY(-1px); }
+    .btn-dinner { background: linear-gradient(135deg, #e1bee7, #ce93d8); color: #4a148c; box-shadow: 0 3px 10px rgba(206,147,216,0.4); }
+    .btn-dinner:hover:not(:disabled) { box-shadow: 0 5px 16px rgba(206,147,216,0.55); transform: translateY(-1px); }
     .btn .btn-emoji { font-size: 1.3rem; }
 
-    .status-msg {
-      font-size: 0.75rem;
-      text-align: center;
-      margin-top: 8px;
-      min-height: 18px;
-      font-weight: 600;
-      color: #b5477a;
-      transition: opacity 0.4s;
-    }
+    /* ── Full-width pink button ── */
+    .btn-full { width: 100%; border: none; border-radius: 14px; padding: 12px; font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 800; cursor: pointer; background: linear-gradient(135deg, #f48fb1, #ce93d8); color: white; box-shadow: 0 3px 12px rgba(220,130,190,0.4); transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s; letter-spacing: 0.5px; }
+    .btn-full:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 5px 18px rgba(220,130,190,0.55); }
+    .btn-full:active { transform: scale(0.97); }
+    .btn-full:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* ── Status messages ── */
+    .status-msg { font-size: 0.75rem; text-align: center; margin-top: 8px; min-height: 18px; font-weight: 600; color: #b5477a; transition: opacity 0.4s; }
     .status-msg.error { color: #c62828; }
     .status-msg.success { color: #2e7d32; }
 
-    /* ── Setup / warning banner ── */
-    .warn-banner {
-      background: rgba(255, 235, 200, 0.92);
-      border: 1.5px solid #ffcc80;
-      border-radius: 18px;
-      padding: 16px 18px;
-      font-size: 0.8rem;
-      color: #6d3b00;
-      font-weight: 600;
-      display: none;
-      line-height: 1.7;
+    /* ── Textarea ── */
+    textarea {
+      width: 100%; border: 1.5px solid rgba(255,182,215,0.5); border-radius: 14px; padding: 11px 14px;
+      font-family: 'Nunito', sans-serif; font-size: 0.88rem; color: #5c3d6e;
+      background: rgba(255,240,250,0.6); resize: none; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s; margin-bottom: 10px;
     }
+    textarea:focus { border-color: #e891c0; box-shadow: 0 0 0 3px rgba(232,145,192,0.15); }
+    textarea::placeholder { color: #d4a0c0; }
+
+    /* ── Warn banner ── */
+    .warn-banner { background: rgba(255,235,200,0.92); border: 1.5px solid #ffcc80; border-radius: 18px; padding: 16px 18px; font-size: 0.8rem; color: #6d3b00; font-weight: 600; display: none; line-height: 1.7; }
     .warn-banner.visible { display: block; }
     .warn-banner ol { padding-left: 18px; margin-top: 8px; }
     .warn-banner li { margin-bottom: 2px; }
-    .warn-banner .topic-hint {
-      display: inline-block;
-      background: rgba(255,200,100,0.35);
-      border-radius: 6px;
-      padding: 1px 6px;
-      font-family: monospace;
-      font-size: 0.82rem;
+    .warn-banner .topic-hint { display: inline-block; background: rgba(255,200,100,0.35); border-radius: 6px; padding: 1px 6px; font-family: monospace; font-size: 0.82rem; }
+
+    /* ── Scheduled list ── */
+    .sched-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .sched-item { display: flex; align-items: center; gap: 8px; background: rgba(255,230,245,0.5); border-radius: 12px; padding: 9px 12px; font-size: 0.8rem; color: #7b3fa0; }
+    .sched-msg { flex: 1; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sched-time { font-size: 0.72rem; color: #c882a8; white-space: nowrap; }
+    .sched-del { background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.5; transition: opacity 0.15s; padding: 0 2px; }
+    .sched-del:hover { opacity: 1; }
+    .sched-empty { font-size: 0.8rem; color: #c882a8; text-align: center; padding: 8px 0; font-style: italic; }
+
+    /* ── DateTime input ── */
+    input[type="datetime-local"] {
+      width: 100%; border: 1.5px solid rgba(255,182,215,0.5); border-radius: 14px; padding: 10px 14px;
+      font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: #5c3d6e;
+      background: rgba(255,240,250,0.6); outline: none; margin-bottom: 10px;
+      transition: border-color 0.2s;
     }
+    input[type="datetime-local"]:focus { border-color: #e891c0; }
+
+    /* ── Photo upload ── */
+    .upload-zone {
+      border: 2px dashed rgba(232,145,192,0.4); border-radius: 14px; padding: 18px;
+      text-align: center; color: #c882a8; font-size: 0.82rem; font-weight: 700;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s; margin-bottom: 10px;
+      background: rgba(255,240,250,0.4);
+    }
+    .upload-zone:hover, .upload-zone.drag { background: rgba(255,200,230,0.3); border-color: #e891c0; }
+    .upload-zone .upload-icon { font-size: 2rem; display: block; margin-bottom: 4px; }
+    .upload-zone input { display: none; }
+    .preview-img { width: 100%; border-radius: 14px; margin-bottom: 10px; display: none; max-height: 200px; object-fit: cover; }
+    .caption-input { width: 100%; border: 1.5px solid rgba(255,182,215,0.5); border-radius: 14px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: #5c3d6e; background: rgba(255,240,250,0.6); outline: none; margin-bottom: 10px; transition: border-color 0.2s; }
+    .caption-input:focus { border-color: #e891c0; }
+    .caption-input::placeholder { color: #d4a0c0; }
+
+    /* ── Drawing canvas ── */
+    .canvas-wrap { position: relative; border-radius: 14px; overflow: hidden; margin-bottom: 10px; touch-action: none; border: 1.5px solid rgba(255,182,215,0.4); background: white; }
+    #draw-canvas { display: block; width: 100%; cursor: crosshair; touch-action: none; }
+    .draw-tools { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .color-btn { width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.15s, border-color 0.15s; flex-shrink: 0; }
+    .color-btn.active { border-color: #7b3fa0; transform: scale(1.2); }
+    .size-slider { flex: 1; min-width: 80px; accent-color: #e891c0; }
+    .btn-clear { border: none; background: rgba(255,200,220,0.5); color: #b5477a; border-radius: 10px; padding: 5px 12px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+    .btn-clear:hover { background: rgba(255,160,190,0.5); }
 
     /* ── Log card ── */
-    .log-list {
-      list-style: none;
-      max-height: 160px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #e8b4d4 transparent;
-    }
-    .log-list li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 4px;
-      border-bottom: 1px solid rgba(230, 180, 215, 0.25);
-      font-size: 0.78rem;
-      color: #7b3fa0;
-      animation: fadeSlideIn 0.35s ease;
-    }
+    .log-list { list-style: none; max-height: 160px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e8b4d4 transparent; }
+    .log-list li { display: flex; align-items: center; gap: 8px; padding: 7px 4px; border-bottom: 1px solid rgba(230,180,215,0.25); font-size: 0.78rem; color: #7b3fa0; animation: fadeSlideIn 0.35s ease; }
     .log-list li:last-child { border-bottom: none; }
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
     .log-icon { font-size: 1rem; }
-    .log-time { font-weight: 700; min-width: 80px; }
+    .log-time { font-weight: 700; min-width: 76px; }
     .log-type { flex: 1; }
     .log-status { font-size: 0.85rem; }
     .log-empty { font-size: 0.8rem; color: #c882a8; text-align: center; padding: 14px 0; font-style: italic; }
-
-    /* ── Custom message ── */
-    textarea {
-      width: 100%;
-      border: 1.5px solid rgba(255, 182, 215, 0.5);
-      border-radius: 14px;
-      padding: 11px 14px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.88rem;
-      color: #5c3d6e;
-      background: rgba(255, 240, 250, 0.6);
-      resize: none;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      margin-bottom: 10px;
-    }
-    textarea:focus {
-      border-color: #e891c0;
-      box-shadow: 0 0 0 3px rgba(232, 145, 192, 0.15);
-    }
-    textarea::placeholder { color: #d4a0c0; }
-    .btn-send-msg {
-      width: 100%;
-      border: none;
-      border-radius: 14px;
-      padding: 12px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 800;
-      cursor: pointer;
-      background: linear-gradient(135deg, #f48fb1, #ce93d8);
-      color: white;
-      box-shadow: 0 3px 12px rgba(220, 130, 190, 0.4);
-      transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
-      letter-spacing: 0.5px;
-    }
-    .btn-send-msg:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 5px 18px rgba(220, 130, 190, 0.55); }
-    .btn-send-msg:active { transform: scale(0.97); }
-    .btn-send-msg:disabled { opacity: 0.55; cursor: not-allowed; }
   </style>
 </head>
 <body>
 <div class="widget">
 
-  <!-- Title card -->
+  <!-- Title -->
   <div class="card title-card">
     <span class="flowers">🌸🌷🌸</span>
     <h1>Nhắc nhở của em 💕</h1>
@@ -306,7 +172,7 @@
     <div class="clock-label">📍 GIỜ HÀ NỘI</div>
   </div>
 
-  <!-- Setup instructions (shown when NTFY_TOPIC not set) -->
+  <!-- Setup warning -->
   <div class="warn-banner" id="warn-banner">
     ⚙️ <strong>Cần cài đặt thêm một chút!</strong>
     <ol>
@@ -317,10 +183,9 @@
     </ol>
   </div>
 
-  <!-- Reminders card -->
+  <!-- Reminders -->
   <div class="card">
     <div class="section-title">⏰ Lịch nhắc nhở</div>
-
     <div class="reminder-row" id="row-lunch">
       <div class="reminder-icon">🍱</div>
       <div class="reminder-info">
@@ -329,7 +194,6 @@
       </div>
       <div class="countdown" id="cd-lunch">--</div>
     </div>
-
     <div class="reminder-row" id="row-dinner">
       <div class="reminder-icon">🍜</div>
       <div class="reminder-info">
@@ -338,7 +202,6 @@
       </div>
       <div class="countdown" id="cd-dinner">--</div>
     </div>
-
     <div class="controls">
       <span class="toggle-label">Bật nhắc nhở 🔔</span>
       <label class="toggle">
@@ -347,7 +210,6 @@
         <div class="toggle-thumb"></div>
       </label>
     </div>
-
     <div class="btn-row">
       <button class="btn btn-lunch" onclick="sendNow('lunch')" id="btn-lunch">
         <span class="btn-emoji">🍱</span>Nhắc ăn trưa
@@ -356,21 +218,66 @@
         <span class="btn-emoji">🍜</span>Nhắc ăn tối
       </button>
     </div>
-
-    <div class="status-msg" id="status-msg"></div>
+    <div class="status-msg" id="reminder-status"></div>
   </div>
 
-  <!-- Custom message card -->
+  <!-- Custom message -->
   <div class="card">
     <div class="section-title">💌 Nhắn gì cho em</div>
     <textarea id="custom-msg" placeholder="Viết gì đó cho em... 💕" rows="3"></textarea>
-    <button class="btn btn-send-msg" id="btn-msg" onclick="sendMessage()">
-      Gửi ngay 💌
-    </button>
+    <button class="btn-full" id="btn-msg" onclick="sendMessage()">Gửi ngay 💌</button>
     <div class="status-msg" id="msg-status"></div>
   </div>
 
-  <!-- Log card -->
+  <!-- Scheduled messages -->
+  <div class="card">
+    <div class="section-title">🗓️ Hẹn giờ gửi</div>
+    <textarea id="sched-msg" placeholder="Nội dung tin nhắn..." rows="2"></textarea>
+    <input type="datetime-local" id="sched-time" />
+    <button class="btn-full" onclick="addScheduled()">Đặt lịch 🗓️</button>
+    <div class="status-msg" id="sched-status"></div>
+    <ul class="sched-list" id="sched-list">
+      <li><div class="sched-empty">Chưa có lịch nào~ 🌷</div></li>
+    </ul>
+  </div>
+
+  <!-- Send photo -->
+  <div class="card">
+    <div class="section-title">📸 Gửi ảnh cho em</div>
+    <div class="upload-zone" id="upload-zone" onclick="document.getElementById('photo-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
+      <span class="upload-icon">📷</span>
+      Chọn ảnh hoặc kéo vào đây
+      <input type="file" id="photo-input" accept="image/*" onchange="previewPhoto(event)" />
+    </div>
+    <img id="photo-preview" class="preview-img" />
+    <input class="caption-input" id="photo-caption" placeholder="Chú thích (tuỳ chọn)..." />
+    <button class="btn-full" id="btn-photo" onclick="sendPhoto()">Gửi ảnh 📸</button>
+    <div class="status-msg" id="photo-status"></div>
+  </div>
+
+  <!-- Drawing pad -->
+  <div class="card">
+    <div class="section-title">🎨 Vẽ gì cho em</div>
+    <div class="draw-tools">
+      <div class="color-btn active" style="background:#e891c0" data-color="#e891c0" onclick="setColor(this)"></div>
+      <div class="color-btn" style="background:#f48fb1" data-color="#f48fb1" onclick="setColor(this)"></div>
+      <div class="color-btn" style="background:#ce93d8" data-color="#ce93d8" onclick="setColor(this)"></div>
+      <div class="color-btn" style="background:#7b3fa0" data-color="#7b3fa0" onclick="setColor(this)"></div>
+      <div class="color-btn" style="background:#f06292" data-color="#f06292" onclick="setColor(this)"></div>
+      <div class="color-btn" style="background:#ff8a65" data-color="#ff8a65" onclick="setColor(this)"></div>
+      <div class="color-btn" style="background:#4db6ac" data-color="#4db6ac" onclick="setColor(this)"></div>
+      <div class="color-btn" style="background:#333333" data-color="#333333" onclick="setColor(this)"></div>
+      <input type="range" class="size-slider" id="brush-size" min="2" max="30" value="6" />
+      <button class="btn-clear" onclick="clearCanvas()">Xoá 🗑️</button>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="draw-canvas" width="760" height="400"></canvas>
+    </div>
+    <button class="btn-full" id="btn-draw" onclick="sendDrawing()">Gửi hình vẽ 🎨</button>
+    <div class="status-msg" id="draw-status"></div>
+  </div>
+
+  <!-- Log -->
   <div class="card">
     <div class="section-title">📋 Đã gửi gần đây</div>
     <ul class="log-list" id="log-list">
@@ -379,177 +286,252 @@
   </div>
 
 </div>
-
 <script>
-  // ── Live Hanoi clock ──
-  function updateClock() {
-    const el = document.getElementById('clock');
-    const hanoi = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    if (el.textContent !== hanoi) {
-      el.style.opacity = '0.6';
-      el.textContent = hanoi;
-      setTimeout(() => el.style.opacity = '1', 80);
-    }
-  }
-  setInterval(updateClock, 500);
-  updateClock();
+// ── Clock ──
+function updateClock() {
+  const el = document.getElementById('clock');
+  const t = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  if (el.textContent !== t) { el.style.opacity = '0.6'; el.textContent = t; setTimeout(() => el.style.opacity = '1', 80); }
+}
+setInterval(updateClock, 500); updateClock();
 
-  // ── Countdown formatter ──
-  function fmtMs(ms) {
-    if (ms <= 0) return '✨ Now!';
-    const totalSec = Math.floor(ms / 1000);
-    const h = Math.floor(totalSec / 3600);
-    const m = Math.floor((totalSec % 3600) / 60);
-    const s = totalSec % 60;
-    if (h > 0) return `${h}h ${m}m`;
-    if (m > 0) return `${m}m ${s}s`;
-    return `${s}s`;
-  }
+// ── Countdown ──
+function fmtMs(ms) {
+  if (ms <= 0) return '✨ Now!';
+  const s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  return h > 0 ? `${h}h ${m}m` : m > 0 ? `${m}m ${sec}s` : `${sec}s`;
+}
 
-  // ── Poll status ──
-  async function pollStatus() {
-    try {
-      const res = await fetch('/api/status');
-      const d = await res.json();
+// ── Status helper ──
+function showStatus(id, msg, cls, dur = 4000) {
+  const el = document.getElementById(id);
+  el.textContent = msg; el.className = 'status-msg ' + cls;
+  if (dur) setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, dur);
+}
 
-      document.getElementById('warn-banner').classList.toggle('visible', !d.hasCredentials);
-      if (d.ntfyTopic) document.title = `💕 ntfy: ${d.ntfyTopic}`;
-      document.getElementById('toggle-input').checked = d.enabled;
+// ── Poll status ──
+async function pollStatus() {
+  try {
+    const d = await fetch('/api/status').then(r => r.json());
+    document.getElementById('warn-banner').classList.toggle('visible', !d.hasCredentials);
+    document.getElementById('toggle-input').checked = d.enabled;
+    document.getElementById('cd-lunch').textContent = fmtMs(d.nextLunch.diffMs);
+    document.getElementById('cd-dinner').textContent = fmtMs(d.nextDinner.diffMs);
+    document.getElementById('row-lunch').classList.toggle('soon', d.nextLunch.diffMs < 300000);
+    document.getElementById('row-dinner').classList.toggle('soon', d.nextDinner.diffMs < 300000);
+  } catch (_) {}
+}
 
-      const lunchMs = d.nextLunch.diffMs;
-      const dinnerMs = d.nextDinner.diffMs;
+// ── Poll logs ──
+let lastLogTime = null;
+async function pollLogs() {
+  try {
+    const d = await fetch('/api/logs').then(r => r.json());
+    const list = document.getElementById('log-list');
+    if (!d.logs.length) { list.innerHTML = '<li><div class="log-empty">Chưa có tin nhắn nào~ 🌷</div></li>'; return; }
+    if (d.logs[0]?.time === lastLogTime) return;
+    lastLogTime = d.logs[0]?.time;
+    const icons = { lunch: '🍱', dinner: '🍜', custom: '💌', scheduled: '🗓️', image: '📸', drawing: '🎨' };
+    const labels = { lunch: 'Ăn trưa', dinner: 'Ăn tối', custom: 'Tin nhắn', scheduled: 'Hẹn giờ', image: 'Ảnh', drawing: 'Hình vẽ' };
+    list.innerHTML = d.logs.map(l => `<li>
+      <span class="log-icon">${icons[l.type] || '💬'}</span>
+      <span class="log-time">${l.time.split(', ')[1] || l.time}</span>
+      <span class="log-type">${['custom','scheduled'].includes(l.type) ? (l.message.length > 20 ? l.message.slice(0,20)+'…' : l.message) : (labels[l.type] || l.type)}</span>
+      <span class="log-status">${l.success ? '✅' : '❌'}</span>
+    </li>`).join('');
+  } catch (_) {}
+}
 
-      document.getElementById('cd-lunch').textContent = fmtMs(lunchMs);
-      document.getElementById('cd-dinner').textContent = fmtMs(dinnerMs);
+// ── Poll scheduled ──
+async function pollScheduled() {
+  try {
+    const d = await fetch('/api/scheduled').then(r => r.json());
+    const list = document.getElementById('sched-list');
+    if (!d.scheduled.length) { list.innerHTML = '<li><div class="sched-empty">Chưa có lịch nào~ 🌷</div></li>'; return; }
+    list.innerHTML = d.scheduled.map(s => {
+      const dt = new Date(s.sendAt);
+      const fmt = dt.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      return `<li class="sched-item">
+        <span>🗓️</span>
+        <span class="sched-msg">${s.message}</span>
+        <span class="sched-time">${fmt}</span>
+        <button class="sched-del" onclick="deleteScheduled('${s.id}')">✕</button>
+      </li>`;
+    }).join('');
+  } catch (_) {}
+}
 
-      document.getElementById('row-lunch').classList.toggle('soon', lunchMs < 5 * 60 * 1000);
-      document.getElementById('row-dinner').classList.toggle('soon', dinnerMs < 5 * 60 * 1000);
-    } catch (_) {}
-  }
+// ── Reminder actions ──
+async function toggleReminders() {
+  const d = await fetch('/api/toggle', { method: 'POST' }).then(r => r.json());
+  document.getElementById('toggle-input').checked = d.enabled;
+  showStatus('reminder-status', d.enabled ? '🔔 Đã bật!' : '🔕 Đã tắt', 'success');
+}
 
-  // ── Poll logs ──
-  let lastLogTime = null;
-  async function pollLogs() {
-    try {
-      const res = await fetch('/api/logs');
-      const d = await res.json();
-      const list = document.getElementById('log-list');
-
-      if (d.logs.length === 0) {
-        list.innerHTML = '<li><div class="log-empty">Chưa có tin nhắn nào~ 🌷</div></li>';
-        return;
-      }
-
-      if (d.logs[0]?.time === lastLogTime) return;
-      lastLogTime = d.logs[0]?.time;
-
-      const icon = { lunch: '🍱', dinner: '🍜', custom: '💌' };
-      const label = { lunch: 'Ăn trưa', dinner: 'Ăn tối', custom: 'Tin nhắn' };
-      list.innerHTML = d.logs.map(l => `
-        <li>
-          <span class="log-icon">${icon[l.type] || '💬'}</span>
-          <span class="log-time">${l.time.split(', ')[1] || l.time}</span>
-          <span class="log-type">${l.type === 'custom' ? (l.message.length > 22 ? l.message.slice(0, 22) + '…' : l.message) : label[l.type]}</span>
-          <span class="log-status">${l.success ? '✅' : '❌'}</span>
-        </li>
-      `).join('');
-    } catch (_) {}
-  }
-
-  // ── Toggle reminders ──
-  async function toggleReminders() {
-    try {
-      const res = await fetch('/api/toggle', { method: 'POST' });
-      const d = await res.json();
-      document.getElementById('toggle-input').checked = d.enabled;
-      showStatus(d.enabled ? '🔔 Đã bật nhắc nhở!' : '🔕 Đã tắt nhắc nhở', 'success');
-    } catch (_) {
-      showStatus('Lỗi kết nối 😢', 'error');
-    }
-  }
-
-  // ── Send now ──
-  async function sendNow(type) {
-    const btn = document.getElementById(`btn-${type}`);
-    btn.disabled = true;
-    showStatus('Đang gửi... 💌', '');
-
-    try {
-      const res = await fetch('/api/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type }),
-      });
-      const d = await res.json();
-
-      if (d.ok) {
-        showStatus(`✅ Đã gửi ${type === 'lunch' ? 'nhắc ăn trưa' : 'nhắc ăn tối'}! 💕`, 'success');
-      } else {
-        showStatus(`❌ ${d.error || 'Lỗi không xác định'}`, 'error');
-      }
-    } catch (_) {
-      showStatus('❌ Lỗi kết nối', 'error');
-    }
-
-    setTimeout(() => { btn.disabled = false; }, 30000);
-    pollLogs();
-  }
-
-  // ── Send custom message ──
-  async function sendMessage() {
-    const textarea = document.getElementById('custom-msg');
-    const btn = document.getElementById('btn-msg');
-    const text = textarea.value.trim();
-    if (!text) { showMsgStatus('Viết gì đó trước đã nha! 🌸', 'error'); return; }
-
-    btn.disabled = true;
-    showMsgStatus('Đang gửi... 💌', '');
-
-    try {
-      const res = await fetch('/api/message', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
-      });
-      const d = await res.json();
-      if (d.ok) {
-        showMsgStatus('Đã gửi! 💕', 'success');
-        textarea.value = '';
-      } else {
-        showMsgStatus(`❌ ${d.error}`, 'error');
-      }
-    } catch (_) {
-      showMsgStatus('❌ Lỗi kết nối', 'error');
-    }
-
-    btn.disabled = false;
-    pollLogs();
-  }
-
-  // Send on Ctrl+Enter / Cmd+Enter
-  document.addEventListener('keydown', e => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') sendMessage();
-  });
-
-  function showMsgStatus(msg, cls) {
-    const el = document.getElementById('msg-status');
-    el.textContent = msg;
-    el.className = 'status-msg ' + cls;
-    if (msg) setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
-  }
-
-  function showStatus(msg, cls) {
-    const el = document.getElementById('status-msg');
-    el.textContent = msg;
-    el.className = 'status-msg ' + cls;
-    if (msg) setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
-  }
-
-  // Start polling
-  pollStatus();
+let lastManual = 0;
+async function sendNow(type) {
+  if (Date.now() - lastManual < 30000) { showStatus('reminder-status', 'Chờ 30 giây nha!', 'error'); return; }
+  lastManual = Date.now();
+  document.getElementById(`btn-${type}`).disabled = true;
+  showStatus('reminder-status', 'Đang gửi...', '');
+  const d = await fetch('/api/send', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type }) }).then(r => r.json());
+  showStatus('reminder-status', d.ok ? '✅ Đã gửi! 💕' : `❌ ${d.error}`, d.ok ? 'success' : 'error');
+  setTimeout(() => document.getElementById(`btn-${type}`).disabled = false, 30000);
   pollLogs();
-  setInterval(pollStatus, 2000);
-  setInterval(pollLogs, 3000);
+}
+
+// ── Custom message ──
+async function sendMessage() {
+  const text = document.getElementById('custom-msg').value.trim();
+  if (!text) { showStatus('msg-status', 'Viết gì đó trước đã nha!', 'error'); return; }
+  document.getElementById('btn-msg').disabled = true;
+  showStatus('msg-status', 'Đang gửi... 💌', '');
+  const d = await fetch('/api/message', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text }) }).then(r => r.json());
+  showStatus('msg-status', d.ok ? '💕 Đã gửi!' : `❌ ${d.error}`, d.ok ? 'success' : 'error');
+  if (d.ok) document.getElementById('custom-msg').value = '';
+  document.getElementById('btn-msg').disabled = false;
+  pollLogs();
+}
+document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && document.activeElement.id === 'custom-msg') sendMessage(); });
+
+// ── Scheduled messages ──
+function setDefaultDateTime() {
+  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
+  now.setMinutes(now.getMinutes() + 30, 0, 0);
+  const pad = n => String(n).padStart(2, '0');
+  document.getElementById('sched-time').value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+}
+setDefaultDateTime();
+
+async function addScheduled() {
+  const message = document.getElementById('sched-msg').value.trim();
+  const sendAt = document.getElementById('sched-time').value;
+  if (!message) { showStatus('sched-status', 'Nhập nội dung trước!', 'error'); return; }
+  if (!sendAt) { showStatus('sched-status', 'Chọn thời gian!', 'error'); return; }
+  // Treat the picker value as Hanoi time
+  const hanoiOffset = 7 * 60;
+  const local = new Date(sendAt);
+  const utc = new Date(local.getTime() - hanoiOffset * 60000);
+  const d = await fetch('/api/scheduled', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, sendAt: utc.toISOString() })
+  }).then(r => r.json());
+  if (d.ok) {
+    showStatus('sched-status', '🗓️ Đã đặt lịch!', 'success');
+    document.getElementById('sched-msg').value = '';
+    pollScheduled();
+  } else {
+    showStatus('sched-status', `❌ ${d.error}`, 'error');
+  }
+}
+
+async function deleteScheduled(id) {
+  await fetch(`/api/scheduled/${id}`, { method: 'DELETE' });
+  pollScheduled();
+}
+
+// ── Photo upload ──
+let photoFile = null;
+function previewPhoto(e) {
+  photoFile = e.target.files[0];
+  if (!photoFile) return;
+  const url = URL.createObjectURL(photoFile);
+  const img = document.getElementById('photo-preview');
+  img.src = url; img.style.display = 'block';
+  document.getElementById('upload-zone').style.display = 'none';
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('drag');
+  photoFile = e.dataTransfer.files[0];
+  if (!photoFile) return;
+  const url = URL.createObjectURL(photoFile);
+  const img = document.getElementById('photo-preview');
+  img.src = url; img.style.display = 'block';
+  document.getElementById('upload-zone').style.display = 'none';
+}
+async function sendPhoto() {
+  if (!photoFile) { showStatus('photo-status', 'Chọn ảnh trước!', 'error'); return; }
+  document.getElementById('btn-photo').disabled = true;
+  showStatus('photo-status', 'Đang gửi... 📸', '');
+  const form = new FormData();
+  form.append('photo', photoFile);
+  form.append('caption', document.getElementById('photo-caption').value || 'Tu anh!');
+  const d = await fetch('/api/photo', { method: 'POST', body: form }).then(r => r.json());
+  showStatus('photo-status', d.ok ? '📸 Đã gửi ảnh!' : `❌ ${d.error}`, d.ok ? 'success' : 'error');
+  if (d.ok) {
+    photoFile = null;
+    document.getElementById('photo-preview').style.display = 'none';
+    document.getElementById('upload-zone').style.display = '';
+    document.getElementById('photo-caption').value = '';
+  }
+  document.getElementById('btn-photo').disabled = false;
+  pollLogs();
+}
+
+// ── Drawing canvas ──
+const canvas = document.getElementById('draw-canvas');
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = 'white'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+ctx.strokeStyle = '#e891c0'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+let drawing = false, lastX = 0, lastY = 0;
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  if (e.touches) {
+    return [(e.touches[0].clientX - rect.left) * scaleX, (e.touches[0].clientY - rect.top) * scaleY];
+  }
+  return [(e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY];
+}
+
+canvas.addEventListener('mousedown', e => { drawing = true; [lastX, lastY] = getPos(e); });
+canvas.addEventListener('mousemove', e => {
+  if (!drawing) return;
+  const [x, y] = getPos(e);
+  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(x, y); ctx.stroke();
+  [lastX, lastY] = [x, y];
+});
+canvas.addEventListener('mouseup', () => drawing = false);
+canvas.addEventListener('mouseleave', () => drawing = false);
+
+canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; [lastX, lastY] = getPos(e); }, { passive: false });
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (!drawing) return;
+  const [x, y] = getPos(e);
+  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(x, y); ctx.stroke();
+  [lastX, lastY] = [x, y];
+}, { passive: false });
+canvas.addEventListener('touchend', () => drawing = false);
+
+function setColor(el) {
+  document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  ctx.strokeStyle = el.dataset.color;
+}
+document.getElementById('brush-size').addEventListener('input', e => { ctx.lineWidth = e.target.value; });
+function clearCanvas() { ctx.fillStyle = 'white'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+
+async function sendDrawing() {
+  document.getElementById('btn-draw').disabled = true;
+  showStatus('draw-status', 'Đang gửi... 🎨', '');
+  canvas.toBlob(async blob => {
+    const res = await fetch('/api/drawing', { method: 'POST', headers: { 'Content-Type': 'image/png' }, body: blob });
+    const d = await res.json();
+    showStatus('draw-status', d.ok ? '🎨 Đã gửi hình vẽ!' : `❌ ${d.error}`, d.ok ? 'success' : 'error');
+    document.getElementById('btn-draw').disabled = false;
+    pollLogs();
+  }, 'image/png');
+}
+
+// ── Start polling ──
+pollStatus(); pollLogs(); pollScheduled();
+setInterval(pollStatus, 2000);
+setInterval(pollLogs, 3000);
+setInterval(pollScheduled, 10000);
 </script>
 </body>
 </html>
