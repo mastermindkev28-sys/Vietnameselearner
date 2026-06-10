@@ -1,0 +1,15 @@
+{
+  "name": "zalo-reminder",
+  "version": "1.0.0",
+  "description": "Daily Zalo reminders to drink water and eat food",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "setup": "node src/setup.js"
+  },
+  "dependencies": {
+    "node-cron": "^3.0.3",
+    "node-fetch": "^2.7.0",
+    "dotenv": "^16.4.5"
+  }
+}
