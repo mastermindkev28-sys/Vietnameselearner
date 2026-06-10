@@ -202,19 +202,29 @@
     .status-msg.error { color: #c62828; }
     .status-msg.success { color: #2e7d32; }
 
-    /* ── No-credentials warning ── */
+    /* ── Setup / warning banner ── */
     .warn-banner {
-      background: rgba(255, 235, 200, 0.9);
+      background: rgba(255, 235, 200, 0.92);
       border: 1.5px solid #ffcc80;
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-size: 0.78rem;
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-size: 0.8rem;
       color: #6d3b00;
       font-weight: 600;
-      text-align: center;
       display: none;
+      line-height: 1.7;
     }
     .warn-banner.visible { display: block; }
+    .warn-banner ol { padding-left: 18px; margin-top: 8px; }
+    .warn-banner li { margin-bottom: 2px; }
+    .warn-banner .topic-hint {
+      display: inline-block;
+      background: rgba(255,200,100,0.35);
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-family: monospace;
+      font-size: 0.82rem;
+    }
 
     /* ── Log card ── */
     .log-list {
@@ -257,9 +267,15 @@
     <div class="clock-label">📍 GIỜ HÀ NỘI</div>
   </div>
 
-  <!-- No-credentials warning -->
+  <!-- Setup instructions (shown when NTFY_TOPIC not set) -->
   <div class="warn-banner" id="warn-banner">
-    ⚠️ Chưa cấu hình Zalo. Xem <strong>README.md</strong> để bắt đầu!
+    ⚙️ <strong>Cần cài đặt thêm một chút!</strong>
+    <ol>
+      <li>Đặt tên topic bí mật trong <span class="topic-hint">.env</span> → <span class="topic-hint">NTFY_TOPIC=ten-bi-mat</span></li>
+      <li>Cô ấy tải app <strong>ntfy</strong> (iOS / Android)</li>
+      <li>Cô ấy subscribe topic: <span class="topic-hint">ten-bi-mat</span></li>
+      <li>Khởi động lại server → xong! 🎉</li>
+    </ol>
   </div>
 
   <!-- Reminders card -->
@@ -348,6 +364,7 @@
       const d = await res.json();
 
       document.getElementById('warn-banner').classList.toggle('visible', !d.hasCredentials);
+      if (d.ntfyTopic) document.title = `💕 ntfy: ${d.ntfyTopic}`;
       document.getElementById('toggle-input').checked = d.enabled;
 
       const lunchMs = d.nextLunch.diffMs;

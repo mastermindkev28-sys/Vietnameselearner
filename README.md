@@ -1,94 +1,75 @@
-# Zalo Daily Reminder Bot
+# Daily Reminder Bot 💕
 
-Sends your girlfriend two daily reminders via Zalo to drink water and eat her meals.
+Sends your girlfriend two phone notifications per day to eat and drink water.
 
-- **12:30 PM** Hanoi time — lunch + water reminder
-- **6:30 PM** Hanoi time — dinner + water reminder
+- **12:30 PM** Hanoi time — lunch reminder
+- **6:30 PM** Hanoi time — dinner reminder
+
+Uses [ntfy.sh](https://ntfy.sh) — free, no account needed.
 
 ---
 
-## Setup (15 minutes)
+## Setup (5 minutes)
 
-### Step 1: Create a Zalo Official Account (OA)
+### Step 1: Pick a secret topic name
 
-You need a Zalo OA to send messages programmatically.
+Think of any random string, e.g. `bao-nho-an-com-abc123`.  
+Keep it hard to guess — anyone who knows it can send to it.
 
-1. Go to [https://oa.zalo.me/](https://oa.zalo.me/) and create a free OA
-2. Choose **Personal** type — no business verification needed for personal use
+### Step 2: Configure
 
-### Step 2: Get your Access Token
+```bash
+cp .env.example .env
+# Edit .env and set: NTFY_TOPIC=bao-nho-an-com-abc123
+```
 
-1. Go to [https://developers.zalo.me/tools/explorer](https://developers.zalo.me/tools/explorer)
-2. Log in with your Zalo account
-3. Select your OA
-4. Click **"Get Access Token"** and copy the token
+### Step 3: She installs ntfy
 
-> Note: Free OA tokens expire every 90 days. You'll need to refresh them periodically.
+- **Android**: [Play Store — ntfy](https://play.google.com/store/apps/details?id=io.heckel.ntfy)
+- **iOS**: [App Store — ntfy](https://apps.apple.com/app/ntfy/id1625396347)
 
-### Step 3: Get your girlfriend's User ID
+She opens the app → **+** → enter your topic name → Subscribe.
 
-1. Ask her to **search for and follow** your OA on Zalo
-2. Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-3. Paste your access token into `.env`
-4. Run the setup script:
-   ```bash
-   npm install
-   node src/setup.js
-   ```
-5. Copy her User ID from the output into `.env`
+### Step 4: Test it
 
-### Step 4: Run the bot
+```bash
+npm install
+node src/setup.js
+```
+
+She should get a test notification instantly. ✅
+
+### Step 5: Run the widget
 
 ```bash
 npm start
+# Open http://localhost:3000
 ```
-
-Keep it running (e.g., on your computer, a Raspberry Pi, or a free cloud server).
 
 ---
 
-## Running 24/7 (Recommended)
+## Running 24/7
 
-### Option A: Free cloud server (Railway / Render)
+### Railway (free)
 
-1. Push this repo to GitHub
-2. Deploy to [Railway](https://railway.app/) or [Render](https://render.com/) for free
-3. Set environment variables in the platform dashboard
+1. Push to GitHub
+2. Deploy on [railway.app](https://railway.app)
+3. Add `NTFY_TOPIC` as an environment variable
 
-### Option B: Your own computer
-
-Use `pm2` to keep it running:
+### Your own machine with pm2
 
 ```bash
 npm install -g pm2
-pm2 start src/index.js --name zalo-reminder
-pm2 save
-pm2 startup
+pm2 start src/server.js --name reminder
+pm2 save && pm2 startup
 ```
 
 ---
 
-## Customize Messages
+## Customize messages
 
-Edit these in your `.env` file:
-
+In `.env`:
 ```env
-LUNCH_MESSAGE=Em ơi, nhớ ăn cơm trưa và uống nước nha! 🍱💧 Anh nhắc em đó~ 💕
-DINNER_MESSAGE=Em ơi, nhớ ăn tối và uống nước nha! 🍜💧 Anh thương em~ 💕
-```
-
----
-
-## Files
-
-```
-├── src/
-│   ├── index.js    # Main bot — runs the cron schedule
-│   └── setup.js    # Helper to find girlfriend's User ID
-├── .env.example    # Template for your credentials
-├── .env            # Your actual credentials (never commit this!)
-└── package.json
+LUNCH_MESSAGE=Em ơi, nhớ ăn cơm trưa và uống nước nha! 🍱💧
+DINNER_MESSAGE=Em ơi, nhớ ăn tối và uống nước nha! 🍜💧
 ```
