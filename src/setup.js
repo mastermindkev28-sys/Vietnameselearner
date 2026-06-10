@@ -21,7 +21,7 @@ async function test() {
   console.log(`Sending test notification to topic: ${NTFY_TOPIC} ...`);
   const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
     method: 'POST',
-    headers: { Title: '💕 Test từ anh!' },
+    headers: { Title: 'Test tu anh!' },
     body: 'Nếu em thấy tin này là ổn rồi nha! 🌸',
   });
   if (res.ok) {

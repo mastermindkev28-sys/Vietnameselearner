@@ -26,7 +26,7 @@ async function send(message, title) {
 }
 
 const opts = { timezone: 'Asia/Ho_Chi_Minh' };
-cron.schedule('30 12 * * *', () => send(LUNCH_MESSAGE, '🍱 Ăn trưa nha em!'), opts);
-cron.schedule('30 18 * * *', () => send(DINNER_MESSAGE, '🍜 Ăn tối nha em!'), opts);
+cron.schedule('30 12 * * *', () => send(LUNCH_MESSAGE, 'An trua nha em!'), opts);
+cron.schedule('30 18 * * *', () => send(DINNER_MESSAGE, 'An toi nha em!'), opts);
 
 console.log(`Bot started. Current Hanoi time: ${now()}`);

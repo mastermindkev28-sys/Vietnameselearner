@@ -44,7 +44,7 @@ function nextOccurrence(hour, minute) {
 }
 
 async function sendNotification(message, type) {
-  const title = type === 'lunch' ? '🍱 Ăn trưa nha em!' : '🍜 Ăn tối nha em!';
+  const title = type === 'lunch' ? 'An trua nha em!' : 'An toi nha em!';
 
   if (!hasCredentials) {
     logs.unshift({ time: now(), type, message, success: false, error: 'No topic set' });
