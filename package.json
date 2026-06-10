@@ -4,12 +4,14 @@
   "description": "Daily Zalo reminders to drink water and eat food",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/server.js",
+    "start:bot": "node src/index.js",
     "setup": "node src/setup.js"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
     "node-cron": "^3.0.3",
-    "node-fetch": "^2.7.0",
-    "dotenv": "^16.4.5"
+    "node-fetch": "^2.7.0"
   }
 }

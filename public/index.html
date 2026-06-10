@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💕 Nhắc nhở của em</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #e8eaf6 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .widget {
+      width: 100%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px);
+      border-radius: 22px;
+      padding: 20px 22px;
+      box-shadow: 0 4px 24px rgba(200, 100, 160, 0.13), 0 1.5px 6px rgba(160, 100, 200, 0.08);
+      border: 1.5px solid rgba(255, 182, 215, 0.35);
+    }
+
+    /* ── Title card ── */
+    .title-card {
+      text-align: center;
+      padding: 22px 22px 18px;
+    }
+    .title-card .flowers {
+      font-size: 1.5rem;
+      letter-spacing: 6px;
+      display: block;
+      margin-bottom: 6px;
+      animation: sway 3s ease-in-out infinite;
+    }
+    @keyframes sway {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    .title-card h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #b5477a;
+      margin-bottom: 12px;
+    }
+    .clock {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: #7b3fa0;
+      letter-spacing: 2px;
+      font-variant-numeric: tabular-nums;
+      transition: opacity 0.1s ease;
+    }
+    .clock-label {
+      font-size: 0.75rem;
+      color: #c882a8;
+      font-weight: 600;
+      margin-top: 3px;
+      letter-spacing: 1px;
+    }
+
+    /* ── Reminders card ── */
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #b5477a;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .reminder-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 200, 230, 0.25), rgba(216, 180, 255, 0.2));
+      margin-bottom: 9px;
+      border: 1px solid rgba(255, 182, 215, 0.3);
+      transition: background 0.3s;
+    }
+    .reminder-row.soon {
+      background: linear-gradient(135deg, rgba(255, 160, 200, 0.4), rgba(200, 150, 255, 0.3));
+      animation: pulse-glow 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220, 100, 160, 0.2); }
+      50% { box-shadow: 0 0 0 8px rgba(220, 100, 160, 0); }
+    }
+    .reminder-icon { font-size: 1.4rem; }
+    .reminder-info { flex: 1; }
+    .reminder-name { font-size: 0.85rem; font-weight: 700; color: #7b3fa0; }
+    .reminder-time { font-size: 0.75rem; color: #c882a8; font-weight: 600; }
+    .countdown {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #b5477a;
+      text-align: right;
+      min-width: 70px;
+    }
+
+    /* ── Toggle ── */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 14px 0 12px;
+    }
+    .toggle-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #7b3fa0;
+    }
+    .toggle {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      cursor: pointer;
+    }
+    .toggle input { display: none; }
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #e0c8ee;
+      transition: background 0.3s;
+    }
+    .toggle input:checked ~ .toggle-track { background: linear-gradient(90deg, #e891c0, #b39ddb); }
+    .toggle-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .toggle input:checked ~ .toggle-thumb { transform: translateX(24px); }
+
+    /* ── Send buttons ── */
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 11px 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      line-height: 1.2;
+    }
+    .btn:active { transform: scale(0.95); }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-lunch {
+      background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+      color: #880e4f;
+      box-shadow: 0 3px 10px rgba(244, 143, 177, 0.4);
+    }
+    .btn-lunch:hover:not(:disabled) { box-shadow: 0 5px 16px rgba(244, 143, 177, 0.55); transform: translateY(-1px); }
+    .btn-dinner {
+      background: linear-gradient(135deg, #e1bee7, #ce93d8);
+      color: #4a148c;
+      box-shadow: 0 3px 10px rgba(206, 147, 216, 0.4);
+    }
+    .btn-dinner:hover:not(:disabled) { box-shadow: 0 5px 16px rgba(206, 147, 216, 0.55); transform: translateY(-1px); }
+    .btn .btn-emoji { font-size: 1.3rem; }
+
+    .status-msg {
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 8px;
+      min-height: 18px;
+      font-weight: 600;
+      color: #b5477a;
+      transition: opacity 0.4s;
+    }
+    .status-msg.error { color: #c62828; }
+    .status-msg.success { color: #2e7d32; }
+
+    /* ── No-credentials warning ── */
+    .warn-banner {
+      background: rgba(255, 235, 200, 0.9);
+      border: 1.5px solid #ffcc80;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 0.78rem;
+      color: #6d3b00;
+      font-weight: 600;
+      text-align: center;
+      display: none;
+    }
+    .warn-banner.visible { display: block; }
+
+    /* ── Log card ── */
+    .log-list {
+      list-style: none;
+      max-height: 160px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #e8b4d4 transparent;
+    }
+    .log-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 4px;
+      border-bottom: 1px solid rgba(230, 180, 215, 0.25);
+      font-size: 0.78rem;
+      color: #7b3fa0;
+      animation: fadeSlideIn 0.35s ease;
+    }
+    .log-list li:last-child { border-bottom: none; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .log-icon { font-size: 1rem; }
+    .log-time { font-weight: 700; min-width: 80px; }
+    .log-type { flex: 1; }
+    .log-status { font-size: 0.85rem; }
+    .log-empty { font-size: 0.8rem; color: #c882a8; text-align: center; padding: 14px 0; font-style: italic; }
+  </style>
+</head>
+<body>
+<div class="widget">
+
+  <!-- Title card -->
+  <div class="card title-card">
+    <span class="flowers">🌸🌷🌸</span>
+    <h1>Nhắc nhở của em 💕</h1>
+    <div class="clock" id="clock">--:--:--</div>
+    <div class="clock-label">📍 GIỜ HÀ NỘI</div>
+  </div>
+
+  <!-- No-credentials warning -->
+  <div class="warn-banner" id="warn-banner">
+    ⚠️ Chưa cấu hình Zalo. Xem <strong>README.md</strong> để bắt đầu!
+  </div>
+
+  <!-- Reminders card -->
+  <div class="card">
+    <div class="section-title">⏰ Lịch nhắc nhở</div>
+
+    <div class="reminder-row" id="row-lunch">
+      <div class="reminder-icon">🍱</div>
+      <div class="reminder-info">
+        <div class="reminder-name">Ăn trưa & uống nước</div>
+        <div class="reminder-time">12:30 PM</div>
+      </div>
+      <div class="countdown" id="cd-lunch">--</div>
+    </div>
+
+    <div class="reminder-row" id="row-dinner">
+      <div class="reminder-icon">🍜</div>
+      <div class="reminder-info">
+        <div class="reminder-name">Ăn tối & uống nước</div>
+        <div class="reminder-time">6:30 PM</div>
+      </div>
+      <div class="countdown" id="cd-dinner">--</div>
+    </div>
+
+    <div class="controls">
+      <span class="toggle-label">Bật nhắc nhở 🔔</span>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-input" checked onchange="toggleReminders()" />
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-lunch" onclick="sendNow('lunch')" id="btn-lunch">
+        <span class="btn-emoji">🍱</span>Nhắc ăn trưa
+      </button>
+      <button class="btn btn-dinner" onclick="sendNow('dinner')" id="btn-dinner">
+        <span class="btn-emoji">🍜</span>Nhắc ăn tối
+      </button>
+    </div>
+
+    <div class="status-msg" id="status-msg"></div>
+  </div>
+
+  <!-- Log card -->
+  <div class="card">
+    <div class="section-title">📋 Đã gửi gần đây</div>
+    <ul class="log-list" id="log-list">
+      <li><div class="log-empty">Chưa có tin nhắn nào~ 🌷</div></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+  // ── Live Hanoi clock ──
+  function updateClock() {
+    const el = document.getElementById('clock');
+    const hanoi = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    if (el.textContent !== hanoi) {
+      el.style.opacity = '0.6';
+      el.textContent = hanoi;
+      setTimeout(() => el.style.opacity = '1', 80);
+    }
+  }
+  setInterval(updateClock, 500);
+  updateClock();
+
+  // ── Countdown formatter ──
+  function fmtMs(ms) {
+    if (ms <= 0) return '✨ Now!';
+    const totalSec = Math.floor(ms / 1000);
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    if (h > 0) return `${h}h ${m}m`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+  }
+
+  // ── Poll status ──
+  async function pollStatus() {
+    try {
+      const res = await fetch('/api/status');
+      const d = await res.json();
+
+      document.getElementById('warn-banner').classList.toggle('visible', !d.hasCredentials);
+      document.getElementById('toggle-input').checked = d.enabled;
+
+      const lunchMs = d.nextLunch.diffMs;
+      const dinnerMs = d.nextDinner.diffMs;
+
+      document.getElementById('cd-lunch').textContent = fmtMs(lunchMs);
+      document.getElementById('cd-dinner').textContent = fmtMs(dinnerMs);
+
+      document.getElementById('row-lunch').classList.toggle('soon', lunchMs < 5 * 60 * 1000);
+      document.getElementById('row-dinner').classList.toggle('soon', dinnerMs < 5 * 60 * 1000);
+    } catch (_) {}
+  }
+
+  // ── Poll logs ──
+  let lastLogTime = null;
+  async function pollLogs() {
+    try {
+      const res = await fetch('/api/logs');
+      const d = await res.json();
+      const list = document.getElementById('log-list');
+
+      if (d.logs.length === 0) {
+        list.innerHTML = '<li><div class="log-empty">Chưa có tin nhắn nào~ 🌷</div></li>';
+        return;
+      }
+
+      if (d.logs[0]?.time === lastLogTime) return;
+      lastLogTime = d.logs[0]?.time;
+
+      list.innerHTML = d.logs.map(l => `
+        <li>
+          <span class="log-icon">${l.type === 'lunch' ? '🍱' : '🍜'}</span>
+          <span class="log-time">${l.time.split(', ')[1] || l.time}</span>
+          <span class="log-type">${l.type === 'lunch' ? 'Ăn trưa' : 'Ăn tối'}</span>
+          <span class="log-status">${l.success ? '✅' : '❌'}</span>
+        </li>
+      `).join('');
+    } catch (_) {}
+  }
+
+  // ── Toggle reminders ──
+  async function toggleReminders() {
+    try {
+      const res = await fetch('/api/toggle', { method: 'POST' });
+      const d = await res.json();
+      document.getElementById('toggle-input').checked = d.enabled;
+      showStatus(d.enabled ? '🔔 Đã bật nhắc nhở!' : '🔕 Đã tắt nhắc nhở', 'success');
+    } catch (_) {
+      showStatus('Lỗi kết nối 😢', 'error');
+    }
+  }
+
+  // ── Send now ──
+  async function sendNow(type) {
+    const btn = document.getElementById(`btn-${type}`);
+    btn.disabled = true;
+    showStatus('Đang gửi... 💌', '');
+
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type }),
+      });
+      const d = await res.json();
+
+      if (d.ok) {
+        showStatus(`✅ Đã gửi ${type === 'lunch' ? 'nhắc ăn trưa' : 'nhắc ăn tối'}! 💕`, 'success');
+      } else {
+        showStatus(`❌ ${d.error || 'Lỗi không xác định'}`, 'error');
+      }
+    } catch (_) {
+      showStatus('❌ Lỗi kết nối', 'error');
+    }
+
+    setTimeout(() => { btn.disabled = false; }, 30000);
+    pollLogs();
+  }
+
+  function showStatus(msg, cls) {
+    const el = document.getElementById('status-msg');
+    el.textContent = msg;
+    el.className = 'status-msg ' + cls;
+    if (msg) setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
+  }
+
+  // Start polling
+  pollStatus();
+  pollLogs();
+  setInterval(pollStatus, 2000);
+  setInterval(pollLogs, 3000);
+</script>
+</body>
+</html>
