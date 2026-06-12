@@ -98,7 +98,7 @@ async function sendImage(buffer, mimetype, filename, caption) {
 
 // ── Cron: scheduled reminders ──
 const cronOpts = { timezone: 'Asia/Ho_Chi_Minh' };
-cron.schedule('30 12 * * *', () => { if (remindersEnabled) sendNotification(LUNCH_MESSAGE, 'lunch'); }, cronOpts);
+cron.schedule('0 12 * * *', () => { if (remindersEnabled) sendNotification(LUNCH_MESSAGE, 'lunch'); }, cronOpts);
 cron.schedule('30 18 * * *', () => { if (remindersEnabled) sendNotification(DINNER_MESSAGE, 'dinner'); }, cronOpts);
 
 // ── Cron: check scheduled messages every minute ──
@@ -136,7 +136,7 @@ app.get('/api/status', (req, res) => {
     hasCredentials,
     ntfyTopic: hasCredentials ? NTFY_TOPIC : null,
     currentHanoiTime: hanoiDate().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-    nextLunch: nextOccurrence(12, 30),
+    nextLunch: nextOccurrence(12, 0),
     nextDinner: nextOccurrence(18, 30),
     lastSent: logs[0] || null,
   });
